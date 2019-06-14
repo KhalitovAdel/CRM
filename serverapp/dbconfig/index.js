@@ -19,4 +19,4 @@ exports.connect = function (done) {
     });
 };
 
-conn = mongoose.connection;
+exports.freshConnect = mongoose.connection;
