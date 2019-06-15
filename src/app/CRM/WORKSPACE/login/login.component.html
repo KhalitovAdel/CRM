@@ -1,0 +1,17 @@
+<section class="login-bg d-flex d-flex-just-center d-flex-item-center">
+  <div class="login-window">
+    <p class="font-weight-bold text-center">Авторизация на портале</p>
+    <hr>
+    <form [formGroup]="userInfo">
+      <mat-form-field>
+        <input matInput formControlName="email" type="text" placeholder="Введите e-mail">
+      </mat-form-field>
+    
+      <mat-form-field>
+        <input matInput formControlName="password" type="password" placeholder="Пароль от портала">
+      </mat-form-field>
+      <p class="err-message">{{errMessage}}</p>
+      <button mat-raised-button type="submit" color="primary" (click)='login()'>Войти на портал</button>
+    </form>
+  </div>
+</section>

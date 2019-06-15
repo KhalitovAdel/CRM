@@ -5,8 +5,16 @@ session         = require("express-session"),
 MongoStore      = require('connect-mongo')(session),
 cors            = require('cors'),
 app             = express(),
-router          = require('./serverapp/routes/index');
+rateLimit       = require("express-rate-limit"),
+router          = require('./serverapp/routes/index'),
+limiter         = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+}),
+helmet          = require('helmet');
+
 var db          = require('./serverapp/dbconfig/index');
+
 require('./serverapp/apps/security/passportjs/index')(passport);
 
 app.use( bodyParser.json() );
@@ -17,7 +25,7 @@ app.use( session({
       mongooseConnection: db.freshConnect,
       collection: 'session'
     }),
-    name : 'papapapapa',
+    name : '_dvparm',
     resave: false,
     rolling: true,
     proxy: true,
@@ -42,7 +50,11 @@ app.use(cors(corsOptions));
 
 app.use( passport.initialize() );
 app.use( passport.session() );
+
+app.use( helmet() );
+
 //app.use('/', express.static(__dirname + '/dist/cleanupCRM/'));
+app.use( limiter );
 app.use('/', router);
 // app.get('*', function(req, res) {
 //     res.sendFile(path.join(__dirname, '/dist/cleanupCRM/index.html'));
