@@ -1,6 +1,7 @@
 const passport      = require('passport'),
 User                = require('../dbconfig/models/user'),
 multer              = require('multer'),
+CryptoJS            = require("crypto-js")
 fs                  = require('fs');
 
 var dir = './dist/CRM/assets/img/users_avatar/';
@@ -19,6 +20,10 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({storage: storage}).single('photo');
+
+function encr(phrase, secret) {
+    return CryptoJS.AES.encrypt(JSON.stringify(phrase), secret).toString();
+}
 
 module.exports.profile = function(req, res) { //Нужно ли отправлять на сервер пустыми поля?
     return res.status(200).send(
@@ -50,7 +55,7 @@ module.exports.update = function(req, res) {
     data['username'] = req.body.email;
     User.findByIdAndUpdate(req.user._id, data, {new: true}, function(err, doc) {
         if (err) return res.status(500).send({message: 'Не удалось изменить профиль'});
-        return res.status(200).send(doc);
+        return res.status(200).send({userinfo: doc, localstoragedata: encr(doc, 'secret secret secret secret')});
     })
 }
 

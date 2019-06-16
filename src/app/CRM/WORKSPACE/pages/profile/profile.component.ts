@@ -46,8 +46,9 @@ export class ProfileComponent implements OnInit {
   saveChanges() {
     if (this.userBio.valid) {
       this.http.putHTTP('/crm/profile/put', this.userBio.value)
-        .subscribe(data=> {
-          this.fbmethods.updateValue(this.userBio, data);
+        .subscribe( (data: any) => {
+          this.fbmethods.updateValue(this.userBio, data.userinfo);
+          localStorage.setItem('_ui', data.localstoragedata);
           window.location.reload();
         }, err => {
           //??

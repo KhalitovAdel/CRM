@@ -62,7 +62,7 @@ module.exports.logout = function(req, res) {
     req.session.destroy();
     res.clearCookie("_dvparm").status(200).send(); //Обязательно нужно что то оптарвлять send чтобы удалились куки и локал
 }
-
+ 
 module.exports.submitRegister = function(req, res) {
     var path = '';
     upload(req, res, function (err) {
