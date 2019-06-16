@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
       this.http.putHTTP('/crm/profile/put', this.userBio.value)
         .subscribe(data=> {
           this.fbmethods.updateValue(this.userBio, data);
+          window.location.reload();
         }, err => {
           //??
         })
