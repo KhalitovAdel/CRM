@@ -13,12 +13,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthGuard } from './SERVICES/authguard/auth.guard';
 import { MainMenuComponent } from './CRM/WORKSPACE/blocks/main-menu/main-menu.component';
+import { ProfileComponent } from './CRM/WORKSPACE/pages/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
