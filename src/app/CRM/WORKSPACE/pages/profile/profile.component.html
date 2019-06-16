@@ -1,3 +1,50 @@
-<p>
-  profile works!
-</p>
+<section class="profile">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <p class="font-weight-bold">Настройки профиля</p>
+        <hr>
+      </div>
+      <div class="col-12">
+
+        <form [formGroup]='userBio'>
+          <div class="w-100 d-flex d-flex-col d-flex-item-center">
+            <img class="user-avatar" src="{{userBio['controls'].img.value}}" alt="">
+            <input type="file" (change)=addPhoto($event)>
+          </div>
+
+          <mat-form-field>
+            <input matInput placeholder="Имя" type="text" formControlName='Name'>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Фамилия" type="text" formControlName='Surname'>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Отчество" type="text" formControlName='Patronymic'>
+          </mat-form-field>
+          
+          <mat-form-field>
+            <input matInput formControlName='birthDate' [matDatepicker]="picker" placeholder="Дата рождения">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field>
+            <span matPrefix>+7 &nbsp;</span>
+            <input matInput placeholder="Номер телефона" type="tel" formControlName='tel'  [textMask]="{mask: phoneMask}">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Контактный e-mail" type="email" formControlName='email'>
+          </mat-form-field>
+
+          <button mat-raised-button type="submit" color="primary" (click)='saveChanges()'>Сохранить изменения</button>
+          
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</section>

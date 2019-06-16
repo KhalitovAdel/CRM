@@ -11,7 +11,8 @@ limiter         = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 }),
-helmet          = require('helmet');
+helmet          = require('helmet'),
+path            = require("path");;
 
 var db          = require('./serverapp/dbconfig/index');
 
@@ -52,13 +53,13 @@ app.use( passport.initialize() );
 app.use( passport.session() );
 
 app.use( helmet() );
-
-//app.use('/', express.static(__dirname + '/dist/cleanupCRM/'));
 app.use( limiter );
+
+app.use('/', express.static(__dirname + '/dist/CRM/'));
 app.use('/', router);
-// app.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname, '/dist/cleanupCRM/index.html'));
-// });
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/dist/CRM/index.html'));
+});
 
 const port = process.env.PORT || 3001;
 db.connect(function (err) {

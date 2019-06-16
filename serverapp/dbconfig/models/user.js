@@ -2,10 +2,18 @@ const mongoose      = require('mongoose')
 bcrypt              = require('bcrypt'),
 saltRounds          = 10;
 
+mongoose.set('useFindAndModify', false);
+
 UserSchema = new mongoose.Schema({
+    Name: String,
+    Surname: String,
+    Patronymic: String,
+    birthDate: Date,
+    tel: String,
     username: String,
     createdDate: Date,
-    password: String
+    password: String,
+    img: String
   });
   
 //   UserSchema.methods.setPassword = function(password) {

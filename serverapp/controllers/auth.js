@@ -1,4 +1,4 @@
-const passport            = require('passport'),
+const passport      = require('passport'),
 User                = require('../dbconfig/models/user'),
 CryptoJS            = require("crypto-js"),
 multer              = require('multer');
